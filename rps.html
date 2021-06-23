@@ -1,0 +1,88 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<br/> Which one will it be? <br/>
+			
+	<a href="#" onclick="playRoshambo('scissors')">scissors</a>
+	<a href="#" onclick="playRoshambo('rock')">rock</a>
+	<a href="#" onclick="playRoshambo('paper')">paper</a>
+	<div id="results"></div>
+	</body>
+</html>
+
+<script>
+	playRoshambo = function(clientGesture){
+
+	if (clientGesture=='scissors') {
+		result = "lose";
+		let url = "http://3.222.19.178/score/increaselosses";
+		let ajaxRequest = new XMLHttpRequest();
+
+		ajaxRequest.onreadystatechange = function() {
+    			if (this.readyState == 4 && this.status == 200) {
+			console.log(this.responseText);
+        		let score = JSON.parse(this.responseText);
+        		document.getElementById("wins").innerHTML = score.wins;
+    		}
+};
+		ajaxRequest.open("GET", url, true);
+		ajaxRequest.send();
+
+	}
+	if (clientGesture=='rock') {
+		//server always chooses rock
+		result = "tie";
+		let url = "http://3.222.19.178/score/increaseties";
+		let ajaxRequest = new XMLHttpRequest();
+
+		ajaxRequest.onreadystatechange = function() {
+    			if (this.readyState == 4 && this.status == 200) {
+			console.log(this.responseText);
+        		let score = JSON.parse(this.responseText);
+        		document.getElementById("wins").innerHTML = score.wins;
+    		}
+};
+		ajaxRequest.open("GET", url, true);
+		ajaxRequest.send();
+
+	}
+	if (clientGesture=='paper') {
+		result = "win";
+		let url = "http://3.222.19.178/score/increasewins";
+		let ajaxRequest = new XMLHttpRequest();
+
+		ajaxRequest.onreadystatechange = function() {
+    			if (this.readyState == 4 && this.status == 200) {
+			console.log(this.responseText);
+        		let score = JSON.parse(this.responseText);
+        		document.getElementById("wins").innerHTML = score.wins;
+    		}
+};
+		ajaxRequest.open("GET", url, true);
+		ajaxRequest.send();
+	}
+	document.getElementById('results').innerHTML = result;
+	}
+</script>
+
+<div id="wins"></div>
+
+
+<script>
+
+
+</script>
+
+
+
+
+	
+
+	
+
+	
+
+
+
+
